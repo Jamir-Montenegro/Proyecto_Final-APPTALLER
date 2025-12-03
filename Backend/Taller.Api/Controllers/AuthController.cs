@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Taller.Api.Models;
 using Taller.Api.Services;
 using Microsoft.AspNetCore.Authorization;
-
+using System.ComponentModel.DataAnnotations;
 namespace Taller.Api.Controllers;
 
 [ApiController]
@@ -55,12 +55,46 @@ public class AuthController : ControllerBase
     /// </summary>
     /// <param name="request">Los datos del nuevo taller (nombre, email, contraseña).</param>
     /// <returns>Los datos del nuevo taller y un token.</returns
+    /// 
+    
     [AllowAnonymous]
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterRequest request)
     {
         try
         {
+
+         if (string.IsNullOrWhiteSpace(request.Nombre))
+            return BadRequest(new { message = "El nombre del taller es obligatorio." });
+
+        if (string.IsNullOrWhiteSpace(request.Email))
+            return BadRequest(new { message = "El email es obligatorio." });
+
+         var emailValidator = new System.ComponentModel.DataAnnotations.EmailAddressAttribute();
+        if (!emailValidator.IsValid(request.Email))
+            return BadRequest(new { message = "El formato del email no es válido." });
+
+        if (string.IsNullOrWhiteSpace(request.Password))
+            return BadRequest(new { message = "La contraseña es obligatoria." });
+
+        if (request.Password.Length < 8)
+            return BadRequest(new { message = "La contraseña debe tener al menos 8 caracteres." });
+
+        
+        bool mayus = request.Password.Any(char.IsUpper);
+        bool minus = request.Password.Any(char.IsLower);
+        bool num = request.Password.Any(char.IsDigit);
+
+        if (!mayus || !minus || !num)
+        {
+            return BadRequest(new
+            {
+                message = "La contraseña debe contener mayúsculas, minúsculas y números."
+            });
+        }
+
+       
+
             if (request.Password != request.ConfirmPassword)
             {
                 return BadRequest(new { message = "Las contraseñas no coinciden." });

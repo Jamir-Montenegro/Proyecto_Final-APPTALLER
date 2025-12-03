@@ -67,6 +67,13 @@ public class ServiciosController : ControllerBase
     {
         try
         {
+
+        if (request.Costo < 0)
+    return BadRequest(new { message = "El costo no puede ser negativo." });
+
+        if (string.IsNullOrWhiteSpace(request.Mecanico))
+    return BadRequest(new { message = "Debe especificar el mecánico." });
+
             var tallerId = ObtenerTallerIdDelToken();
             var servicio = await _servicioService.CreateAsync(request, tallerId);
 

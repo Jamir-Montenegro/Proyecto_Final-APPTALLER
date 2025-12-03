@@ -67,6 +67,16 @@ public class VehiculosController : ControllerBase
     {
         try
         {
+
+        if (request.Anio < 1950 || request.Anio > DateTime.Now.Year)
+    return BadRequest(new { message = "El año del vehículo no es válido." });
+
+       if (string.IsNullOrWhiteSpace(request.Placa))
+    return BadRequest(new { message = "La placa es obligatoria." });
+
+       if (!string.IsNullOrEmpty(request.Vin) && request.Vin.Length != 17)
+    return BadRequest(new { message = "El VIN debe tener 17 caracteres." });
+
             var tallerId = ObtenerTallerIdDelToken();
             var vehiculo = await _vehiculoService.CreateAsync(request, tallerId);
 

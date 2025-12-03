@@ -65,6 +65,13 @@ public class MaterialesController : ControllerBase
     {
         try
         {
+
+        if (request.Cantidad < 0)
+    return BadRequest(new { message = "La cantidad no puede ser negativa." });
+
+         if (request.PrecioUnitario < 0)
+    return BadRequest(new { message = "El precio no puede ser negativo." });
+
             var tallerId = ObtenerTallerIdDelToken();
             var material = await _materialService.CreateAsync(request, tallerId);
             return CreatedAtAction(nameof(GetMaterial), new { id = material.Id }, material);

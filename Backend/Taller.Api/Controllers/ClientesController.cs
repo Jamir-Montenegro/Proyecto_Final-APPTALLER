@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Taller.Api.Models;
 using Taller.Api.Services;
 using System.Security.Claims;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace Taller.Api.Controllers;
 
@@ -41,7 +43,9 @@ public class ClientesController : ControllerBase
     public async Task<IActionResult> GetCliente(Guid id)
     {
         try
-        {
+        {  
+
+
             var tallerId = ObtenerTallerIdDelToken();
             var cliente = await _clienteService.GetByIdAsync(id, tallerId);
 
@@ -65,6 +69,19 @@ public class ClientesController : ControllerBase
     {
         try
         {
+
+        
+        if (string.IsNullOrWhiteSpace(request.Nombre))
+    return BadRequest(new { message = "El nombre del cliente es obligatorio." });
+
+     if (string.IsNullOrWhiteSpace(request.Telefono))
+    return BadRequest(new { message = "El teléfono es obligatorio." });
+
+     var emailValidator = new EmailAddressAttribute();
+          if (!string.IsNullOrEmpty(request.Email) && !emailValidator.IsValid(request.Email))
+     return BadRequest(new { message = "El email no es válido." });
+
+
             var tallerId = ObtenerTallerIdDelToken();
             var cliente = await _clienteService.CreateAsync(request, tallerId);
 
