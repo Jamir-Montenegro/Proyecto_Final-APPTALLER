@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "L9MGIxph3Hk=",
+  "dgSpecHash": "D7Dvjo2129M=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Jamir\\Desktop\\Proyecto-Final-APPTALLER\\Proyecto_Final-APPTALLER\\Backend\\Taller.Api\\Taller.Api.csproj",
+  "projectFilePath": "C:\\Users\\Jamir\\Desktop\\Proyecto-Final-APPTALLER\\Proyecto_Final-APPTALLER\\backend\\Taller.Api\\Taller.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Jamir\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\9.0.0\\microsoft.aspnetcore.authentication.jwtbearer.9.0.0.nupkg.sha512",
     "C:\\Users\\Jamir\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.8\\microsoft.aspnetcore.openapi.9.0.8.nupkg.sha512",

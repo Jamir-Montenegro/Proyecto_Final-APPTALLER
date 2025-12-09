@@ -39,6 +39,7 @@ builder.Services.AddScoped<IServicioRepository>(sp => new ServicioRepository(con
 builder.Services.AddScoped<IMaterialRepository>(sp => new MaterialRepository(connectionString));
 builder.Services.AddScoped<IInformeRepository>(sp => new InformeRepository(connectionString));
 
+
 // Register Services
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<VehiculoService>();

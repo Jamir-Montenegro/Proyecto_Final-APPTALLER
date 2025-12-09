@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" href="images/favicon.png">
+	<link rel="stylesheet" href="fonts/stylesheet.css">
+	<link rel="stylesheet" href="css/swiper-bundle.min.css">
+	<link rel="stylesheet" href="css/magnific-popup.min.css">
+	<link rel="stylesheet" href="css/animate.min.css">
+	<link rel="stylesheet" href="css/style.css">
+	<title>ChapiMaster</title>
+</head>
+
+
+<body>
+
+	<!-- Agendar cita -->
+	<div class="modal-form mfp-hide mfp-with-anim" id="modal-form">
+		<div class="modal-form-head">
+			<div class="modal-form-logo">
+				<img src="images/logo-header.png" alt="ChapiMaster">
+			</div>
+			<div class="modal-form-close">
+				<img src="images/close.svg" alt="Close">
+			</div>
+		</div>
+
+		<div class="modal-form-body">
+			<div class="modal-form-title">Agendar cita</div>
+			<form>
+				<input type="text" name="nombre" placeholder="Nombre*" required>
+				<input type="tel" name="celular" placeholder="Numero celular*" required>
+				<input type="email" name="correo" placeholder="Correo electronico*" required>
+				<input type="date" name="fecha" required min="" id="fechaCitaModal">
+				<input type="time" name="hora" required min="08:00" max="21:00" id="horaCitaModal">
+				<textarea name="comentarios" cols="30" rows="5" placeholder="Comentarios"></textarea>
+				<button type="submit" class="form-button">Enviar</button>
+			</form>
+		</div>
+	</div>
+
+	<!-- Botón subir arriba -->
+	<div class="go-up">
+		<a href="#">
+			<img src="images/arrow-up.svg" alt="Go up">
+		</a>
+	</div>
+	
+	<!-- Header -->
+	<header class="site-header">
+		<div class="header-top">
+			<div class="container">
+				<div class="header-row">
+					<!-- Header móvil -->
+					<div class="header-mobile-logo">
+						<a href="#">
+							<img src="images/logo-header.png" alt="ChapiMaster">
+						</a>
+					</div>
+
+					<div class="hamburger">
+						<span></span>
+						<span></span>
+					</div>
+
+					<!-- Header desktop -->
+					<div class="header-right">
+						<div class="header-info">
+							<img src="images/location.svg" alt="Ubicación">
+							<span>San Francisco, Calle 5ta, Ciudad de Panama</span>
+						</div>
+						<a href="tel:6641-4004" class="header-info">
+							<img src="images/phone.svg" alt="Teléfono">
+							<span>+507 6641-4003</span>
+						</a>
+
+						<div class="header-social">
+							<a href="#">
+								<img src="images/social-twitter.svg" alt="Twitter">
+							</a>
+							<a href="#">
+								<img src="images/social-vk.svg" alt="VK">
+							</a>
+							<a href="#">
+								<img src="images/social-facebook.svg" alt="Facebook">
+							</a>
+							<a href="#">
+								<img src="images/social-telegram.svg" alt="Telegram">
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="header-bottom">
+			<div class="container">
+				<div class="header-bottom-row">
+					<div class="header-logo">
+						<a href="#">
+							<img src="images/logo-header.png" alt="Construction">
+						</a>
+					</div>
+
+					<nav class="header-nav">
+						<ul>
+							<li><a class="anchor-link" href="#s-about">Sobre Nosotros</a></li>
+							<li><a class="anchor-link" href="#s-services">Nuestros servicios</a></li>
+							<li><a class="anchor-link" href="#s-gallery">Trabajos realizados</a></li>
+							<li><a class="anchor-link" href="#s-team">Marcas especializadas</a></li>
+							<li><a class="anchor-link" href="#s-testimonials">Nuestro equipo</a></li>
+							<li><a class="anchor-link" href="#s-contact">Contacto</a></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+
+		<!-- Menú móvil -->
+		<div class="header-mobile-wrap">
+			<nav class="header-mobile-nav">
+				<ul>
+					<li><a class="anchor-link" href="#s-about">Sobre Nosotros</a></li>
+					<li><a class="anchor-link" href="#s-services">Nuestros servicios</a></li>
+					<li><a class="anchor-link" href="#s-gallery">Trabajos realizados</a></li>
+					<li><a class="anchor-link" href="#s-team">Marcas especializadas</a></li>
+					<li><a class="anchor-link" href="#s-testimonials">Nuestro equipo</a></li>
+					<li><a class="anchor-link" href="#s-contact">Contacto</a></li>
+				</ul>
+			</nav>
+
+			<div class="header-mobile-info">
+				<img src="images/location.svg" alt="Ubicación">
+				<span>San Francisco, calle 5ta</span>
+			</div>
+			<a href="tel:6641-4004" class="header-mobile-info">
+				<img src="images/phone.svg" alt="+507 6641-4003">
+				<span>+507 6641-4003</span>
+			</a>
+
+			<div class="header-mobile-social">
+				<a href="#">
+					<img src="images/social-twitter.svg" alt="Twitter">
+				</a>
+				<a href="#">
+					<img src="images/social-vk.svg" alt="VK">
+				</a>
+				<a href="#">
+					<img src="images/social-facebook.svg" alt="Facebook">
+				</a>
+				<a href="#">
+					<img src="images/social-telegram.svg" alt="Telegram">
+				</a>
+			</div>
+		</div>
+	</header>
+
+	<!-- Banner -->
+	<section class="s-banner">
+		<div class="swiper banner-swiper">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide" style="background-image: url(images/header1.jpg)">
+					<div class="banner-content">
+						<div class="banner-subtitle wow fadeIn" data-wow-delay="0.1s">Taller certificado</div>
+						<h2 class="banner-title wow fadeIn" data-wow-delay="0.2s"><strong>Confiables</strong>, con trabajos rapidos y detallados</h2>
+						<a href="#s-services" class="banner-btn def-btn anchor-link wow fadeIn" data-wow-delay="0.3s">Ver servicios</a>
+					</div>
+				</div>
+				<div class="swiper-slide" style="background-image: url(images/header2.jpg)">
+					<div class="banner-content">
+						<div class="banner-subtitle wow fadeIn">Taller certificado</div>
+						<h2 class="banner-title"><strong>Diseño 3D </strong> Con la ultima tecnologia </h2>
+						<a href="#s-services" class="banner-btn def-btn anchor-link">Ver servicios</a>
+					</div>
+				</div>
+				<div class="swiper-slide" style="background-image: url(images/header3.jpg)">
+					<div class="banner-content">
+						<div class="banner-subtitle">Taller certificado</div>
+						<h2 class="banner-title"><strong>Reconstruccion de Carrocerias </strong>Dejaremos tu auto como nuevo</h2>
+						<a href="#s-services" class="banner-btn def-btn anchor-link">Ver servicios</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="swiper-pagination wow fadeInUp" data-wow-delay="0.5s"></div>
+			
+			<div class="container">
+				<div class="swiper-button-prev"></div>
+				<div class="swiper-button-next"></div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Sobre Nosotros -->
+	<section class="s-about" id="s-about">
+		<div class="container">
+			<div class="about-row">
+				<div class="about-left">
+					<h2 class="def-title wow fadeInLeft" data-wow-delay="0.2s">Acerca de nuestro taller</h2>
+					<div class="def-desc wow fadeInLeft" data-wow-delay="0.3s">
+						<strong>CHAPIMASTER</strong> es un taller especializado en reparación estética automotriz con una filosofía simple y única: cada vehículo merece un trato experto y personalizado. Creemos en un proceso integral donde un equipo coordinado acompaña tu auto desde la evaluación inicial hasta la entrega final. Así garantizamos una comunicación clara, un trabajo detallado y resultados que devuelven la apariencia y valor original de tu vehículo.
+					</div>
+					<a href="#s-services" class="def-btn anchor-link wow fadeInLeft" data-wow-delay="0.4s">Agendar cita</a>
+				</div>
+	
+				<div class="about-right">
+					<img src="images/taller_about.jpg" alt="Sobre nosotros" class="wow fadeIn" data-wow-delay="0.5s">
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Estadísticas -->
+	<section class="s-numbers">
+		<div class="container">
+			<div class="numbers-row num-scroll">
+				<div class="numbers-left">
+					<h2 class="def-title color-white wow fadeInLeft" data-wow-delay="0.2s">Nuestra compañia <br> en estadisticas</h2>
+					<div class="def-desc wow fadeInLeft" data-wow-delay="0.3s">
+						Uno de los pilares fundamentales de CHAPIMASTER es la orientación al cliente. Al confiar en nuestros servicios, puedes estar seguro de recibir un trabajo de alta calidad, realizado con precisión, compromiso y atención en cada detalle.
+					</div>
+				</div>
+
+				<div class="numbers-right">
+					<div class="numbers-item">
+						<div class="numbers-num num-js" data-count="+600">0</div>
+						<div class="numbers-desc">
+							Clientes <br>
+							satisfechos
+						</div>
+					</div>
+					<div class="numbers-item">
+						<div class="numbers-num num-js" data-count="10">0</div>
+						<div class="numbers-desc">
+							Años de experiencia 
+						</div>
+					</div>
+					<div class="numbers-item">
+						<div class="numbers-num num-js" data-count="8">0</div>
+						<div class="numbers-desc">
+							Certificaciones
+						</div>
+					</div>
+					<div class="numbers-item">
+						<div class="numbers-num num-js" data-count="+600">0</div>
+						<div class="numbers-desc">
+							Proyectos <br>
+							realizados
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Servicios -->
+	<section class="s-services" id="s-services">
+		<div class="container">
+			<h2 class="center-title wow fadeIn" data-wow-delay="0.1s">Nuestros servicios </h2>
+
+			<div class="services-row">
+				<div class="services-item wow fadeIn" data-wow-delay="0.1s">
+					<div class="services-thumb">
+						<img src="images/reparacion.jpg" alt="Reconstrucción">
+					</div>
+					<div class="services-body">
+						<h4 class="services-title">Reconstruccion</h4>
+						<div class="services-desc">
+							Experimenta el arte de la reconstrucción automotriz con nuestro trabajo especializado, restaurando cada detalle con acabado profesional.
+						</div>
+						<a href="#modal-form" data-effect="mfp-zoom-in" class="def-btn services-btn">Agendar cita</a>
+					</div>
+				</div>
+
+				<div class="services-item wow fadeIn" data-wow-delay="0.2s">
+					<div class="services-thumb">
+						<img src="images/abolladura.jpg" alt="Desabollado">
+					</div>
+					<div class="services-body">
+						<h4 class="services-title">Desabollado</h4>
+						<div class="services-desc">
+							Mejora la apariencia de tu vehículo con nuestro desabollado experto, precisión técnica y resultados que devuelven su forma original.
+						</div>
+						<a href="#modal-form" data-effect="mfp-zoom-in" class="def-btn services-btn">Agendar cita</a>
+					</div>
+				</div>
+
+				<div class="services-item wow fadeIn" data-wow-delay="0.3s">
+					<div class="services-thumb">
+						<img src="images/pintar.jpg" alt="Pintura">
+					</div>
+					<div class="services-body">
+						<h4 class="services-title">Pintura</h4>
+						<div class="services-desc">
+							Realza la personalidad de tu vehículo con nuestra pintura premium, color vibrante, acabado impecable y un estilo que destaca.
+						</div>
+						<a href="#modal-form" data-effect="mfp-zoom-in" class="def-btn services-btn">Agendar cita</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Galería -->
+	<section class="s-gallery" id="s-gallery">
+		<div class="container">
+			<h2 class="center-title wow fadeIn" data-wow-delay="0.1s">Trabajos realizados</h2>
+
+			<div class="gallery-wrap">
+				<a href="images/trabajo1.jpg" class="gallery-item wow fadeIn" data-effect="mfp-zoom-in" data-wow-delay="0.2s">
+					<span class="gallery-border"></span>
+					<img src="images/trabajo1.jpg" alt="Image 1">
+				</a>
+				<a href="images/trabajo2.jpg" class="gallery-item wow fadeIn" data-effect="mfp-zoom-in" data-wow-delay="0.3s">
+					<span class="gallery-border"></span>
+					<img src="images/trabajo2.jpg" alt="Image 2">
+				</a>
+				<a href="images/trabajo3.jpg" class="gallery-item wow fadeIn" data-effect="mfp-zoom-in" data-wow-delay="0.4s"> 
+					<span class="gallery-border"></span>
+					<img src="images/trabajo3.jpg" alt="Image 3">
+				</a>
+				<a href="images/trabajo4.jpg" class="gallery-item wow fadeIn" data-effect="mfp-zoom-in" data-wow-delay="0.5s">
+					<span class="gallery-border"></span>
+					<img src="images/trabajo4.jpg" alt="Image 4">
+				</a>
+				<a href="images/trabajo5.jpg" class="gallery-item wow fadeIn" data-effect="mfp-zoom-in" data-wow-delay="0.6s">
+					<span class="gallery-border"></span>
+					<img src="images/trabajo5.jpg" alt="Image 5">
+				</a>
+				<a href="images/trabajo6.jpg" class="gallery-item wow fadeIn" data-effect="mfp-zoom-in" data-wow-delay="0.7s">
+					<span class="gallery-border"></span>
+					<img src="images/trabajo6.jpg" alt="Image 6">
+				</a>
+
+				<a href="images/trabajo7.jpg" class="gallery-item" data-effect="mfp-zoom-in">
+					<span class="gallery-border"></span>
+					<img src="images/trabajo7.jpg" alt="Image 7">
+				</a>
+				<a href="images/trabajo8.jpg" class="gallery-item" data-effect="mfp-zoom-in">
+					<span class="gallery-border"></span>
+					<img src="images/trabajo8.jpg" alt="Image 8">
+				</a>
+				<a href="images/trabajo9.jpg" class="gallery-item" data-effect="mfp-zoom-in"> 
+					<span class="gallery-border"></span>
+					<img src="images/trabajo9.jpg" alt="Image 9">
+				</a>
+				<a href="images/trabajo10.jpg" class="gallery-item" data-effect="mfp-zoom-in">
+					<span class="gallery-border"></span>
+					<img src="images/trabajo10.jpg" alt="Image 10">
+				</a>
+				<a href="images/trabajo11.jpg" class="gallery-item" data-effect="mfp-zoom-in">
+					<span class="gallery-border"></span>
+					<img src="images/trabajo11.jpg" alt="Image 11">
+				</a>
+				<a href="images/trabajo12.jpg" class="gallery-item" data-effect="mfp-zoom-in">
+					<span class="gallery-border"></span>
+					<img src="images/trabajo12.jpg" alt="Image 12">
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Por qué nosotros -->
+	<section class="s-why" id="s-why">
+		<div class="container">
+			<div class="why-row">
+				<div class="why-left">
+					<h2 class="def-title wow fadeInLeft" data-wow-delay="0.1s">¿Por qué nosotros?</h2>
+					<div class="def-desc wow fadeInLeft" data-wow-delay="0.2s">
+						Cada color transforma la esencia de un vehículo y genera emociones únicas en quienes lo ven. <br> En ChapiMaster entendemos que esa elección refleja tus experiencias, tu estilo y la historia que quieres que tu auto cuente.
+					</div>
+	
+					<div class="why-features">
+						<div class="why-features-item">
+							<div class="why-features-icon wow fadeInLeft" data-wow-delay="0.3s">
+								<img src="images/check-mark.svg" alt="Check mark"> 
+							</div>
+	
+							<div class="why-features-right">
+								<div class="why-features-title wow fadeInRight" data-wow-delay="0.4s">Materiales de calidad</div>
+								<div class="why-features-desc wow fadeInRight" data-wow-delay="0.5s">
+									Durante más de 10 años de experiencia, hemos probado innumerables materiales y seleccionado únicamente los que garantizan la mayor calidad y durabilidad para tu vehículo.
+								</div>
+							</div>
+						</div>
+	
+						<div class="why-features-item">
+							<div class="why-features-icon wow fadeInLeft" data-wow-delay="0.3s">
+								<img src="images/check-mark.svg" alt="Check mark"> 
+							</div>
+							<div class="why-features-right">
+								<div class="why-features-title wow fadeInRight" data-wow-delay="0.4s">Especialistas</div>
+								<div class="why-features-desc wow fadeInRight" data-wow-delay="0.5s">
+									Elegir a ChapiMaster es confiar en especialistas que combinan precisión, experiencia y resultados de alta calidad.
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="why-right">
+					<img src="images/piezas.jpg" alt="Por qué nosotros" class="wow fadeIn" data-wow-delay="0.6s">
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Certificaciones -->
+	<section class="s-team" id="s-team">
+		<div class="container">
+			<h2 class="center-title wow fadeIn" data-wow-delay="0.1s">Certificaciones</h2>
+
+			<div class="team-row">
+				<div class="team-item wow fadeInUp" data-wow-delay="0.2s">
+					<div class="team-thumb">
+						<img src="images/mercedes.jpg" alt="Mercedes">
+					</div>
+					<div class="team-body">
+						<div class="team-profi">Certificacion europea</div>
+						<div class="team-name">Mercedes </div>
+					</div>
+				</div>
+
+				<div class="team-item wow fadeInUp" data-wow-delay="0.3s">
+					<div class="team-thumb">
+						<img src="images/toyota.jpg" alt="Toyota">
+					</div>
+					<div class="team-body">
+						<div class="team-profi">Certificacion japonesa</div>
+						<div class="team-name">Toyota </div>
+					</div>
+				</div>
+
+				<div class="team-item wow fadeInUp" data-wow-delay="0.4s">
+					<div class="team-thumb">
+						<img src="images/geely.jpg" alt="Geely">
+					</div>
+					<div class="team-body">
+						<div class="team-profi">Certificacion china</div>
+						<div class="team-name">Geely </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Nuestro equipo -->
+	<section class="s-reviews" id="s-testimonials" style="background-image: url('images/reviews-bg.png');">
+		<div class="container">
+			<h2 class="center-title color-white wow fadeIn" data-wow-delay="0.1s">Nuestro equipo</h2>
+			
+			<div class="swiper reviews-swiper">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<div class="reviews-item wow fadeInUp" data-wow-delay="0.2s">
+							<div class="reviews-thumb">
+								<img src="images/Torres.jpeg" alt="Ian Torres">
+							</div>
+
+							<div class="reviews-body">
+								<div class="reviews-name">Ian Torres</div>
+								<div class="reviews-profi">Chapistero</div>
+								<div class="reviews-comment">
+									Es un pintor con 5 años de experiencia en pintura, acabados cromados y mates, se especializa en vinilado y modificaciones de color en todo tipo de automoviles.
+								</div>
+								<div class="reviews-social">
+									<a href="#"><img src="images/social-vk-gray.svg" alt="VK"></a>
+									<a href="#"><img src="images/social-facebook-gray.svg" alt="Facebook"></a>
+									<a href="#"><img src="images/social-telegram-gray.svg" alt="Telegram"></a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="swiper-slide">
+						<div class="reviews-item wow fadeInUp" data-wow-delay="0.3s">
+							<div class="reviews-thumb">
+								<img src="images/Castillo.jpeg" alt="Antonio Castillo">
+							</div>
+							
+							<div class="reviews-body">
+								<div class="reviews-name">Antonio Castillo</div>
+								<div class="reviews-profi">Pintor </div>
+								<div class="reviews-comment">
+									Pintor con más de 12 años de experiencia, se especializa en preparación, aplicación y acabado de pintura. <br> Encargado del proceso de pintura.
+								</div>
+								<div class="reviews-social">
+									<a href="#"><img src="images/social-vk-gray.svg" alt="VK"></a>
+									<a href="#"><img src="images/social-facebook-gray.svg" alt="Facebook"></a>
+									<a href="#"><img src="images/social-telegram-gray.svg" alt="Telegram"></a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="swiper-slide">
+						<div class="reviews-item wow fadeInUp" data-wow-delay="0.4s">
+							<div class="reviews-thumb">
+								<img src="images/Nescker.jpeg" alt="Nescker Santana">
+							</div>
+							
+							<div class="reviews-body">
+								<div class="reviews-name">Nescker Santana</div>
+								<div class="reviews-profi">Recepcionista</div>
+								<div class="reviews-comment">
+									Nescker lo recibira al entrar a ChapiMaster, lo guiara en el proceso de creado,modificacion o cancelacion de citas, tambien lo ayudará en la venta y cobro de piezas.
+								</div>
+								<div class="reviews-social">
+									<a href="#"><img src="images/social-vk-gray.svg" alt="VK"></a>
+									<a href="#"><img src="images/social-facebook-gray.svg" alt="Facebook"></a>
+									<a href="#"><img src="images/social-telegram-gray.svg" alt="Telegram"></a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="swiper-slide">
+						<div class="reviews-item">
+							<div class="reviews-thumb">
+								<img src="images/Montenigga.jpeg" alt="Jamir Montenegro">
+							</div>
+							
+							<div class="reviews-body">
+								<div class="reviews-name">Jamir Montenegro</div>
+								<div class="reviews-profi">Chapistero</div>
+								<div class="reviews-comment">
+									Chapistero de profesion,especializado en desabollado de carrocerias metalicas, Jamir hara que esos pequeños golpes desaparezcan para siempre de tu automovil.
+								</div>
+								<div class="reviews-social">
+									<a href="#"><img src="images/social-vk-gray.svg" alt="VK"></a>
+									<a href="#"><img src="images/social-facebook-gray.svg" alt="Facebook"></a>
+									<a href="#"><img src="images/social-telegram-gray.svg" alt="Telegram"></a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="swiper-slide">
+						<div class="reviews-item">
+							<div class="reviews-thumb">
+								<img src="images/Christian.jpeg" alt="Christian Dominguez">
+							</div>
+							
+							<div class="reviews-body">
+								<div class="reviews-name">Christian Dominguez</div>
+								<div class="reviews-profi">Chapistero</div>
+								<div class="reviews-comment">
+									Christian es un chapistero reconocido por ser el hijo de Ian, tiene 8 años de experiencia, reparando todo tipo de golpes y choques en autos, camiones e incluso motocicletas.
+								</div>
+								<div class="reviews-social">
+									<a href="#"><img src="images/social-vk-gray.svg" alt="VK"></a>
+									<a href="#"><img src="images/social-facebook-gray.svg" alt="Facebook"></a>
+									<a href="#"><img src="images/social-telegram-gray.svg" alt="Telegram"></a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="swiper-slide">
+						<div class="reviews-item">
+							<div class="reviews-thumb">
+								<img src="images/senor.jpeg" alt="Jorge Villalobos">
+							</div>
+							
+							<div class="reviews-body">
+								<div class="reviews-name">Jorge Villalobos</div>
+								<div class="reviews-profi">Maestro Chapistero</div>
+								<div class="reviews-comment">
+									Chapistero con más de 20 años de experiencia, se especializa en carroceria y masilla. Encargado de los chapisteros y de la supervision de calidad.								</div>
+								<div class="reviews-social">
+									<a href="#"><img src="images/social-vk-gray.svg" alt="VK"></a>
+									<a href="#"><img src="images/social-facebook-gray.svg" alt="Facebook"></a>
+									<a href="#"><img src="images/social-telegram-gray.svg" alt="Telegram"></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+				<div class="swiper-pagination"></div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Partners -->
+	<div class="s-partners" id="s-partners">
+		<div class="partners-row">
+			<div class="partners-item"><img src="images/partner-1.svg" alt="partner"></div>
+			<div class="partners-item"><img src="images/partner-2.svg" alt="partner"></div>
+			<div class="partners-item"><img src="images/partner-3.svg" alt="partner"></div>
+			<div class="partners-item"><img src="images/partner-4.svg" alt="partner"></div>
+			<div class="partners-item"><img src="images/partner-5.svg" alt="partner"></div>
+			<div class="partners-item"><img src="images/partner-1.svg" alt="partner"></div>
+			<div class="partners-item"><img src="images/partner-2.svg" alt="partner"></div>
+			<div class="partners-item"><img src="images/partner-3.svg" alt="partner"></div>
+			<div class="partners-item"><img src="images/partner-4.svg" alt="partner"></div>
+			<div class="partners-item"><img src="images/partner-5.svg" alt="partner"></div>
+		</div>
+	</div>
+
+	<!-- Contacto -->
+	<section class="s-form" id="s-contact">
+		<div class="container">
+			<div class="form-row">
+				<div class="form-left">
+					<h2 class="def-title">¿Quieres agendar una cita?</h2>
+					<div class="def-desc">
+						Si deseas agendar una cita o solicitar cualquiera de nuestros servicios, completa el formulario a la derecha. <br> Nuestro equipo te contactará durante el día para confirmar la cita.
+					</div>
+					<div class="form-image">
+						<img src="images/coaster.jfif" alt="Feedback form">
+					</div>
+				</div>
+
+				<div class="form-right">
+					<form>
+						<input type="text" name="nombre" placeholder="Nombre*" required>
+						<input type="tel" name="celular" placeholder="Numero celular*" required>
+						<input type="email" name="correo" placeholder="Correo electronico">
+						<input type="date" name="fecha" required min="" id="fechaCitaContacto">
+						<input type="time" name="hora" required min="08:00" max="21:00" id="horaCitaContacto">
+						<textarea name="comentarios" cols="30" rows="5" placeholder="Comentarios"></textarea>
+						<button type="submit" class="def-btn form-button">Enviar</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Footer -->
+	<footer class="site-footer">
+		<div class="container">
+			<div class="footer-row">
+				<div class="footer-left">
+					<div class="footer-logo">
+						<a href="#">
+							<img src="images/logo-footer.png" alt="Construction">
+						</a>
+					</div>
+					<div class="footer-desc">
+						<strong>ChapiMaster</strong> trae a la vida tu vehiculo
+					</div>
+				</div>
+
+				<div class="footer-right">
+					<nav class="footer-nav">
+						<h5 class="footer-title">Nuestros servicios</h5>
+						<ul>
+							<li><a href="#">Reconstruccion de carroceria</a></li>
+							<li><a href="#">Desabollado</a></li>
+							<li><a href="#">Pintura</a></li>
+						</ul>
+					</nav>
+
+					<div class="footer-nav">
+						<h5 class="footer-title">Horario</h5>
+						<ul>
+							<li>Lunes: 8:00 am - 9:00 pm</li>
+							<li>Martes: 8:00 - 9:00 pm</li>
+							<li>Miercoles: 8:00 am - 9:00 pm</li>
+							<li>Jueves: 8:00 am - 9:00 pm</li>
+							<li>Viernes: 8:00 - 9:00pm</li>
+							<li>Sabado: 10:00 am - 6:00 pm  </li>
+							<li>Domingo: 10:00 am - 6:00 pm</li>
+						</ul>
+					</div>
+
+					<div class="footer-nav">
+						<h5 class="footer-title">Contacto</h5>
+						<div class="footer-info-item">
+							<div class="footer-info-icon"><img src="images/location-gray.svg" alt="Location"></div>
+							<div class="footer-info-text">San Francisco, Calle 5ta, Ciudad de Panama</div>
+						</div>
+						<a href="tel:79504575654" class="footer-info-item">
+							<div class="footer-info-icon"><img src="images/phone-gray.svg" alt="Phone"></div>
+							<div class="footer-info-text">+507 6641-4004</div>
+						</a>
+
+						<div class="footer-social">
+							<a href="#">
+								<img src="images/social-twitter-gray.svg" alt="Twitter">
+							</a>
+							<a href="#">
+								<img src="images/social-vk-gray.svg" alt="VK">
+							</a>
+							<a href="#">
+								<img src="images/social-facebook-gray.svg" alt="Facebook">
+							</a>
+							<a href="#">
+								<img src="images/social-telegram-gray.svg" alt="Telegram">
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="footer-copyright">
+				<div class="copyright-text"></div>
+			</div>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<script src="js/jquery-3.7.0.min.js"></script>
+	<script src="js/swiper-bundle.min.js"></script>
+	<script src="js/magnific-popup.min.js"></script>
+	<script src="js/wow.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+	<script type="text/javascript">
+		(function(){
+			emailjs.init("6DHgYN-Qkx8jfW4mA");
+		})();
+	</script>
+	<script src="js/script.js"></script>
+	<script>
+	</script>
+</body>
+
+</html>

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Jamir\\Desktop\\Proyecto-Final-APPTALLER\\Proyecto_Final-APPTALLER\\Backend\\Taller.Api\\Taller.Api.csproj": {}
+    "C:\\Users\\Jamir\\Desktop\\Proyecto-Final-APPTALLER\\Proyecto_Final-APPTALLER\\backend\\Taller.Api\\Taller.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Jamir\\Desktop\\Proyecto-Final-APPTALLER\\Proyecto_Final-APPTALLER\\Backend\\Taller.Api\\Taller.Api.csproj": {
+    "C:\\Users\\Jamir\\Desktop\\Proyecto-Final-APPTALLER\\Proyecto_Final-APPTALLER\\backend\\Taller.Api\\Taller.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Jamir\\Desktop\\Proyecto-Final-APPTALLER\\Proyecto_Final-APPTALLER\\Backend\\Taller.Api\\Taller.Api.csproj",
+        "projectUniqueName": "C:\\Users\\Jamir\\Desktop\\Proyecto-Final-APPTALLER\\Proyecto_Final-APPTALLER\\backend\\Taller.Api\\Taller.Api.csproj",
         "projectName": "Taller.Api",
-        "projectPath": "C:\\Users\\Jamir\\Desktop\\Proyecto-Final-APPTALLER\\Proyecto_Final-APPTALLER\\Backend\\Taller.Api\\Taller.Api.csproj",
+        "projectPath": "C:\\Users\\Jamir\\Desktop\\Proyecto-Final-APPTALLER\\Proyecto_Final-APPTALLER\\backend\\Taller.Api\\Taller.Api.csproj",
         "packagesPath": "C:\\Users\\Jamir\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Jamir\\Desktop\\Proyecto-Final-APPTALLER\\Proyecto_Final-APPTALLER\\Backend\\Taller.Api\\obj\\",
+        "outputPath": "C:\\Users\\Jamir\\Desktop\\Proyecto-Final-APPTALLER\\Proyecto_Final-APPTALLER\\backend\\Taller.Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
