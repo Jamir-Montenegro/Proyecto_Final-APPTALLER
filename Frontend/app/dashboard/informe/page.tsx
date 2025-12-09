@@ -1,54 +1,103 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Car, Users, Calendar, CheckCircle, Clock, XCircle } from 'lucide-react'
+import { useEffect, useState } from "react";
+
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Car, Users, Calendar, CheckCircle, Clock, XCircle } from "lucide-react";
+
+import { useVehiculos } from "@/hooks/use-vehiculos";
+import { useClientes } from "@/hooks/use-clientes";
+import { useCitas } from "@/hooks/use-citas";
 
 export default function InformePage() {
-  // Datos simulados para el informe
+  const { vehiculos, cargarVehiculos } = useVehiculos();
+  const { clientes, fetchClientes } = useClientes();
+  const { citas, loadCitas } = useCitas();
+
+  const [isReady, setIsReady] = useState(false);
+
+  useEffect(() => {
+    async function loadAll() {
+      await Promise.all([
+        cargarVehiculos(),
+        fetchClientes(),
+        loadCitas(),
+      ]);
+
+      setIsReady(true);
+    }
+
+    loadAll();
+  }, []);
+
+  if (!isReady) {
+    return (
+      <div className="p-10 text-center text-xl text-muted-foreground">
+        Cargando informe...
+      </div>
+    );
+  }
+
+  // ---- ESTADÍSTICAS ----
+  const totalVehiculos = vehiculos.length;
+  const totalClientes = clientes.length;
+  const totalCitas = citas.length;
+
+  const citasCompletadas = citas.filter((c) => c.estado === "Completada").length;
+  const citasPendientes = citas.filter((c) => c.estado === "Pendiente").length;
+  const citasEnProgreso = citas.filter((c) => c.estado === "En Progreso").length;
+  const citasCanceladas = citas.filter((c) => c.estado === "Cancelada").length;
+
+  const tasaCompletadas =
+    totalCitas > 0 ? Math.round((citasCompletadas / totalCitas) * 100) : 0;
+
+  const promedioVehiculosPorCliente =
+    totalClientes > 0 ? (totalVehiculos / totalClientes).toFixed(1) : "0";
+
   const stats = [
     {
       title: "Vehículos Registrados",
-      value: "3",
+      value: totalVehiculos,
       icon: Car,
       description: "Total en el sistema",
       color: "bg-blue-500",
     },
     {
       title: "Clientes Registrados",
-      value: "3",
+      value: totalClientes,
       icon: Users,
       description: "Total en el sistema",
       color: "bg-green-500",
     },
     {
       title: "Citas Solicitadas",
-      value: "3",
+      value: totalCitas,
       icon: Calendar,
       description: "Total de citas",
       color: "bg-purple-500",
     },
     {
       title: "Citas Atendidas",
-      value: "1",
+      value: citasCompletadas,
       icon: CheckCircle,
       description: "Completadas",
       color: "bg-emerald-500",
     },
     {
       title: "Citas Pendientes",
-      value: "1",
+      value: citasPendientes,
       icon: Clock,
       description: "Por atender",
       color: "bg-yellow-500",
     },
     {
       title: "Citas Canceladas",
-      value: "0",
+      value: citasCanceladas,
       icon: XCircle,
       description: "No realizadas",
       color: "bg-red-500",
     },
-  ]
+  ];
 
   return (
     <div className="space-y-6">
@@ -74,35 +123,39 @@ export default function InformePage() {
         ))}
       </div>
 
+      {/* RESUMEN */}
       <Card>
         <CardHeader>
           <CardTitle>Resumen de Operaciones</CardTitle>
           <CardDescription>Vista general del estado del taller</CardDescription>
         </CardHeader>
+
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between p-4 border rounded-lg">
             <div>
               <p className="font-medium">Tasa de Citas Completadas</p>
               <p className="text-sm text-muted-foreground">Porcentaje de citas finalizadas</p>
             </div>
-            <div className="text-2xl font-bold text-green-600">33%</div>
+            <div className="text-2xl font-bold text-green-600">{tasaCompletadas}%</div>
           </div>
+
           <div className="flex items-center justify-between p-4 border rounded-lg">
             <div>
               <p className="font-medium">Vehículos por Cliente</p>
-              <p className="text-sm text-muted-foreground">Promedio de autos por cliente</p>
+              <p className="text-sm text-muted-foreground">Promedio por cliente</p>
             </div>
-            <div className="text-2xl font-bold text-blue-600">1.0</div>
+            <div className="text-2xl font-bold text-blue-600">{promedioVehiculosPorCliente}</div>
           </div>
+
           <div className="flex items-center justify-between p-4 border rounded-lg">
             <div>
               <p className="font-medium">Citas en Progreso</p>
               <p className="text-sm text-muted-foreground">Actualmente siendo atendidas</p>
             </div>
-            <div className="text-2xl font-bold text-yellow-600">1</div>
+            <div className="text-2xl font-bold text-yellow-600">{citasEnProgreso}</div>
           </div>
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

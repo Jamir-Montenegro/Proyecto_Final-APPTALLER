@@ -1,57 +1,37 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-// import { createClient } from "@/utils/supabaseClient" // Assuming supabaseClient is the correct import
-import { useState } from "react"
+import type React from "react";
+import { useEffect, useState } from "react";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+type PerfilData = {
+  nombreTaller: string;
+  email: string;
+};
 
 export default function PerfilPage() {
-  // const [user, setUser] = useState<any>(null)
-  const [newPassword, setNewPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
-  const [message, setMessage] = useState("")
-  const [error, setError] = useState("")
+  const [perfil, setPerfil] = useState<PerfilData>({
+    nombreTaller: "",
+    email: "",
+  });
 
-  // const supabase = createClient()
 
-  // useEffect(() => {
-  //   fetchUser()
-  // }, [])
+  useEffect(() => {
+    if (typeof window === "undefined") return;
 
-  // const fetchUser = async () => {
-  //   const {
-  //     data: { user },
-  //   } = await supabase.auth.getUser()
-  //   if (user) {
-  //     setUser(user)
-  //     setEmail(user.email || "")
-  //   }
-  // }
+    const nombre = localStorage.getItem("nombre") ?? "";
+    const email = localStorage.getItem("email") ?? "";
 
-  const handleUpdatePassword = (e: React.FormEvent) => {
-    e.preventDefault()
-    setMessage("")
-    setError("")
+    setPerfil({
+      nombreTaller: nombre,
+      email,
+    });
+  }, []);
 
-    if (newPassword !== confirmPassword) {
-      setError("Las contraseñas no coinciden")
-      return
-    }
-
-    if (newPassword.length < 6) {
-      setError("La contraseña debe tener al menos 6 caracteres")
-      return
-    }
-
-    setMessage("Contraseña actualizada exitosamente")
-    setNewPassword("")
-    setConfirmPassword("")
-  }
-
-  const userName = "jamir"
-  const userEmail = "jama@gmail.com"
-  const workshopName = "aaaaaaaa"
+  const inicial = (perfil.nombreTaller || perfil.email || "?")
+    .charAt(0)
+    .toUpperCase();
 
   return (
     <div className="space-y-6">
@@ -62,33 +42,47 @@ export default function PerfilPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Información Personal</CardTitle>
+          <CardTitle>Información del Taller</CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
+          {/* Avatar + encabezado */}
           <div className="flex items-center gap-4">
             <Avatar className="h-24 w-24">
               <AvatarFallback className="bg-blue-500 text-white text-3xl">
-                {userName.charAt(0).toUpperCase()}
+                {inicial}
               </AvatarFallback>
             </Avatar>
+
             <div>
-              <h2 className="text-2xl font-semibold">{userName}</h2>
-              <p className="text-muted-foreground">{userEmail}</p>
+              <h2 className="text-2xl font-semibold">
+                {perfil.nombreTaller || "Taller sin nombre"}
+              </h2>
+              <p className="text-muted-foreground">
+                {perfil.email || "Sin correo configurado"}
+              </p>
             </div>
           </div>
 
+          {/* Detalle */}
           <div className="space-y-6 pt-4">
-            <div className="space-y-2">
+            <div className="space-y-1">
               <p className="text-sm text-muted-foreground">Nombre del Taller</p>
-              <p className="text-lg font-medium">{workshopName}</p>
+              <p className="text-lg font-medium">
+                {perfil.nombreTaller || "Taller sin nombre"}
+              </p>
             </div>
-            <div className="space-y-2">
-              <p className="text-sm text-muted-foreground">Correo Electrónico</p>
-              <p className="text-lg font-medium">{userEmail}</p>
+
+            <div className="space-y-1">
+              <p className="text-sm text-muted-foreground">
+                Correo Electrónico
+              </p>
+              <p className="text-lg font-medium">
+                {perfil.email || "Sin correo configurado"}
+              </p>
             </div>
           </div>
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

@@ -1,46 +1,79 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Car, Users, Calendar, Package } from "lucide-react"
+"use client";
+
+import { useEffect } from "react";
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Car, Users, Calendar, Package } from "lucide-react";
+
+// Hooks 
+import { useVehiculos } from "@/hooks/use-vehiculos";
+import { useClientes } from "@/hooks/use-clientes";
+import { useCitas } from "@/hooks/use-citas";
+import { useMateriales } from "@/hooks/use-materiales";
 
 export default function DashboardPage() {
-  const mockStats = [
+  const { vehiculos, cargarVehiculos } = useVehiculos();
+  const { clientes, fetchClientes } = useClientes();
+  const { citas, loadCitas } = useCitas();
+  const { materiales, loadMateriales } = useMateriales();
+
+ 
+  useEffect(() => {
+    cargarVehiculos();
+    fetchClientes();
+    loadCitas();
+    loadMateriales();
+  }, []);
+
+ 
+  const totalAutos = vehiculos.length;
+  const totalClientes = clientes.length;
+  const citasPendientes = citas.filter((c) => c.estado === "Pendiente").length;
+  const totalInventario = materiales.length;
+
+  const stats = [
     {
       name: "Total Autos",
-      value: 12,
+      value: totalAutos,
       icon: Car,
       color: "text-blue-500",
     },
     {
       name: "Total Clientes",
-      value: 8,
+      value: totalClientes,
       icon: Users,
       color: "text-green-500",
     },
     {
       name: "Citas Pendientes",
-      value: 5,
+      value: citasPendientes,
       icon: Calendar,
       color: "text-orange-500",
     },
     {
       name: "Items en Inventario",
-      value: 45,
+      value: totalInventario,
       icon: Package,
       color: "text-purple-500",
     },
-  ]
+  ];
 
   return (
     <div className="space-y-6">
+      {/* TITULO */}
       <div>
         <h1 className="text-3xl font-bold text-foreground">Dashboard</h1>
-        <p className="text-muted-foreground">Bienvenido al sistema de gestión del taller</p>
+        <p className="text-muted-foreground">Resumen general del taller</p>
       </div>
 
+      {/* TARJETAS DE ESTADISTICAS */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {mockStats.map((stat) => (
+        {stats.map((stat) => (
           <Card key={stat.name}>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">{stat.name}</CardTitle>
+              <CardTitle className="text-sm font-medium text-muted-foreground">
+                {stat.name}
+              </CardTitle>
               <stat.icon className={`h-5 w-5 ${stat.color}`} />
             </CardHeader>
             <CardContent>
@@ -50,16 +83,18 @@ export default function DashboardPage() {
         ))}
       </div>
 
+      {/* RESUMEN */}
       <Card>
         <CardHeader>
-          <CardTitle>Resumen</CardTitle>
+          <CardTitle>Resumen del Taller</CardTitle>
         </CardHeader>
         <CardContent>
           <p className="text-muted-foreground">
-            Utiliza el menú lateral para navegar entre las diferentes secciones del sistema de gestión del taller.
+            Usa el menú lateral para acceder a Autos, Clientes, Inventario, Historial y más.
           </p>
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }
+

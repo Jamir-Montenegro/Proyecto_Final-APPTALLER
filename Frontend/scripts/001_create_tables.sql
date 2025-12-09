@@ -1,108 +1,83 @@
--- Enable UUID extension
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-
--- Clientes (Customers) table
-CREATE TABLE IF NOT EXISTS clientes (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+-- 1. Tabla: talleres (cada registro = un taller independiente)
+CREATE TABLE talleres (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   nombre TEXT NOT NULL,
-  telefono TEXT,
+  email TEXT NOT NULL UNIQUE,
+  password_hash TEXT NOT NULL,
+  creado_en TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 2. Tabla: clientes
+CREATE TABLE clientes (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  taller_id UUID NOT NULL REFERENCES talleres(id) ON DELETE CASCADE,
+  nombre TEXT NOT NULL,
+  telefono TEXT NOT NULL,
   email TEXT,
   direccion TEXT,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE
+  creado_en TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Autos (Cars) table
-CREATE TABLE IF NOT EXISTS autos (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  cliente_id UUID REFERENCES clientes(id) ON DELETE CASCADE,
+-- 3. Tabla: vehiculos
+CREATE TABLE vehiculos (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  taller_id UUID NOT NULL REFERENCES talleres(id) ON DELETE CASCADE,
+  cliente_id UUID NOT NULL REFERENCES clientes(id) ON DELETE CASCADE,
   marca TEXT NOT NULL,
   modelo TEXT NOT NULL,
-  año INTEGER,
-  placa TEXT,
+  anio INTEGER NOT NULL,
+  placa TEXT NOT NULL,
   color TEXT,
   vin TEXT,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE
+  creado_en TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE (taller_id, placa)  -- La placa es única solo dentro del mismo taller
 );
 
--- Citas (Appointments) table
-CREATE TABLE IF NOT EXISTS citas (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  auto_id UUID REFERENCES autos(id) ON DELETE CASCADE,
-  cliente_id UUID REFERENCES clientes(id) ON DELETE CASCADE,
-  fecha TIMESTAMP WITH TIME ZONE NOT NULL,
+-- 4. Tabla: citas
+CREATE TABLE citas (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  taller_id UUID NOT NULL REFERENCES talleres(id) ON DELETE CASCADE,
+  cliente_id UUID NOT NULL REFERENCES clientes(id) ON DELETE CASCADE,
+  fecha_hora TIMESTAMPTZ NOT NULL,
   descripcion TEXT,
-  estado TEXT DEFAULT 'pendiente' CHECK (estado IN ('pendiente', 'en_progreso', 'completada', 'cancelada')),
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE
+  estado TEXT NOT NULL DEFAULT 'Pendiente',  -- Valores: 'Pendiente', 'En Progreso', 'Completada', 'Cancelada'
+  creado_en TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Historial (Service History) table
-CREATE TABLE IF NOT EXISTS historial (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  auto_id UUID REFERENCES autos(id) ON DELETE CASCADE,
-  cliente_id UUID REFERENCES clientes(id) ON DELETE CASCADE,
-  fecha TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+-- 5. Tabla: servicios (historial de trabajos)
+CREATE TABLE servicios (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  taller_id UUID NOT NULL REFERENCES talleres(id) ON DELETE CASCADE,
+  vehiculo_id UUID NOT NULL REFERENCES vehiculos(id) ON DELETE CASCADE,
+  fecha DATE NOT NULL,
   descripcion TEXT NOT NULL,
-  costo DECIMAL(10, 2),
-  mecanico TEXT,
+  costo NUMERIC(10,2) NOT NULL DEFAULT 0.00,
+  mecanico TEXT NOT NULL,
   notas TEXT,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE
+  creado_en TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Inventario (Inventory) table
-CREATE TABLE IF NOT EXISTS inventario (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+-- 6. Tabla: materiales (inventario)
+CREATE TABLE materiales (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  taller_id UUID NOT NULL REFERENCES talleres(id) ON DELETE CASCADE,
   nombre TEXT NOT NULL,
   descripcion TEXT,
-  cantidad INTEGER DEFAULT 0,
-  precio_unitario DECIMAL(10, 2),
+  cantidad INTEGER NOT NULL DEFAULT 0,
+  umbral_bajo INTEGER DEFAULT 5,
+  precio_unitario NUMERIC(10,2) DEFAULT 0.00,
   categoria TEXT,
   proveedor TEXT,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE
+  creado_en TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE (taller_id, nombre)  -- No puede haber dos materiales con mismo nombre en el mismo taller
 );
 
--- Enable Row Level Security
-ALTER TABLE clientes ENABLE ROW LEVEL SECURITY;
-ALTER TABLE autos ENABLE ROW LEVEL SECURITY;
-ALTER TABLE citas ENABLE ROW LEVEL SECURITY;
-ALTER TABLE historial ENABLE ROW LEVEL SECURITY;
-ALTER TABLE inventario ENABLE ROW LEVEL SECURITY;
+-- Índices para mejorar el rendimiento 
+CREATE INDEX idx_clientes_taller ON clientes(taller_id);
+CREATE INDEX idx_vehiculos_taller ON vehiculos(taller_id);
+CREATE INDEX idx_citas_taller ON citas(taller_id);
+CREATE INDEX idx_servicios_taller ON servicios(taller_id);
+CREATE INDEX idx_materiales_taller ON materiales(taller_id);
 
--- RLS Policies for clientes
-CREATE POLICY "Users can view their own clientes" ON clientes FOR SELECT USING (auth.uid() = user_id);
-CREATE POLICY "Users can insert their own clientes" ON clientes FOR INSERT WITH CHECK (auth.uid() = user_id);
-CREATE POLICY "Users can update their own clientes" ON clientes FOR UPDATE USING (auth.uid() = user_id);
-CREATE POLICY "Users can delete their own clientes" ON clientes FOR DELETE USING (auth.uid() = user_id);
 
--- RLS Policies for autos
-CREATE POLICY "Users can view their own autos" ON autos FOR SELECT USING (auth.uid() = user_id);
-CREATE POLICY "Users can insert their own autos" ON autos FOR INSERT WITH CHECK (auth.uid() = user_id);
-CREATE POLICY "Users can update their own autos" ON autos FOR UPDATE USING (auth.uid() = user_id);
-CREATE POLICY "Users can delete their own autos" ON autos FOR DELETE USING (auth.uid() = user_id);
-
--- RLS Policies for citas
-CREATE POLICY "Users can view their own citas" ON citas FOR SELECT USING (auth.uid() = user_id);
-CREATE POLICY "Users can insert their own citas" ON citas FOR INSERT WITH CHECK (auth.uid() = user_id);
-CREATE POLICY "Users can update their own citas" ON citas FOR UPDATE USING (auth.uid() = user_id);
-CREATE POLICY "Users can delete their own citas" ON citas FOR DELETE USING (auth.uid() = user_id);
-
--- RLS Policies for historial
-CREATE POLICY "Users can view their own historial" ON historial FOR SELECT USING (auth.uid() = user_id);
-CREATE POLICY "Users can insert their own historial" ON historial FOR INSERT WITH CHECK (auth.uid() = user_id);
-CREATE POLICY "Users can update their own historial" ON historial FOR UPDATE USING (auth.uid() = user_id);
-CREATE POLICY "Users can delete their own historial" ON historial FOR DELETE USING (auth.uid() = user_id);
-
--- RLS Policies for inventario
-CREATE POLICY "Users can view their own inventario" ON inventario FOR SELECT USING (auth.uid() = user_id);
-CREATE POLICY "Users can insert their own inventario" ON inventario FOR INSERT WITH CHECK (auth.uid() = user_id);
-CREATE POLICY "Users can update their own inventario" ON inventario FOR UPDATE USING (auth.uid() = user_id);
-CREATE POLICY "Users can delete their own inventario" ON inventario FOR DELETE USING (auth.uid() = user_id);
+ALTER TABLE clientes ADD COLUMN cedula TEXT UNIQUE;
